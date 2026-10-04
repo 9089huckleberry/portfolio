@@ -1,0 +1,59 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 512 >>
+stream
+BT
+/F1 24 Tf
+72 720 Td
+(Dev Pratap Singh) Tj
+/F1 12 Tf
+0 -28 Td
+(Software Engineer | Computer Science Undergraduate | NIT Trichy) Tj
+0 -34 Td
+(Email: devpratap9089@gmail.com) Tj
+0 -22 Td
+(GitHub: github.com/9089huckleberry) Tj
+0 -22 Td
+(LinkedIn: linkedin.com/in/dev-pratap-singh/) Tj
+/F1 16 Tf
+0 -48 Td
+(Experience) Tj
+/F1 11 Tf
+0 -22 Td
+(Data Analytics and Cloud Intern - PwC India, 2024) Tj
+0 -18 Td
+(Built data pipelines and analytics workflows with GCP and BigQuery.) Tj
+/F1 16 Tf
+0 -44 Td
+(Education) Tj
+/F1 11 Tf
+0 -22 Td
+(B.Tech Computer Science and Engineering - NIT Tiruchirappalli) Tj
+0 -18 Td
+(2022 - Present | Algorithms, operating systems, networks, data systems) Tj
+/F1 16 Tf
+0 -44 Td
+(Selected projects) Tj
+/F1 11 Tf
+0 -22 Td
+(AI Voice Chatbot | BookMate Recommendation System | TCP Chat Application) Tj
+0 -18 Td
+(Python, C++, React, Node.js, SQL, GCP, BigQuery, Git) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Root 1 0 R >>
+%%EOF

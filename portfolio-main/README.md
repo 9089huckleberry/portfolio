@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dev Pratap Singh — Portfolio
 
-## Getting Started
+A recruiter-focused, frontend-only portfolio built with Next.js App Router,
+TypeScript, Tailwind CSS, Framer Motion, and Lucide React.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The portfolio is intentionally static: there is no backend, database, API route,
+authentication flow, or environment variable required to run it. Update the
+content in [`lib/portfolio.ts`](./lib/portfolio.ts).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production build
 
-## Learn More
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Existing Git repository
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+git add .
+git commit -m "Build recruiter-focused frontend portfolio"
+git push origin main
+```
 
-## Deploy on Vercel
+Import the GitHub repository at [vercel.com/new](https://vercel.com/new). Vercel
+will detect Next.js automatically. Use the repository root as the project root,
+leave environment variables empty, and deploy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### New GitHub repository
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git init
+git add .
+git commit -m "Build recruiter-focused frontend portfolio"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+git push -u origin main
+```
+
+Then import the repository into Vercel.
+
+### Vercel CLI
+
+```bash
+npm install -g vercel
+vercel login
+vercel
+vercel --prod
+```
+
+After deployment, verify the live URL on desktop and mobile. Check the section
+navigation, GitHub/LinkedIn links, resume download, email CTA, responsive menu,
+project repository links, and browser console for errors.
