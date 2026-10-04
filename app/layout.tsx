@@ -1,37 +1,32 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Dev Pratap Singh | Software Engineer",
   description:
-    "Portfolio of Dev Pratap Singh, a computer science engineer building reliable products, data systems, and thoughtful web experiences.",
-  keywords: [
-    "Dev Pratap Singh",
-    "Software Engineer",
-    "Full Stack Developer",
-    "NIT Trichy",
-    "Data Engineering",
-    "React",
-    "Python",
-  ],
-  authors: [{ name: "Dev Pratap Singh" }],
-  creator: "Dev Pratap Singh",
-  metadataBase: new URL("https://devpratapsingh.dev"),
-  openGraph: {
-    type: "website",
-    title: "Dev Pratap Singh | Software Engineer",
-    description:
-      "Computer science engineer building reliable products, data systems, and thoughtful web experiences.",
-    url: "https://devpratapsingh.dev",
-    siteName: "Dev Pratap Singh",
-  },
-  robots: { index: true, follow: true },
+    "Systems-focused software engineer building reliable software across networking, concurrency, distributed systems, and cloud analytics.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${cormorant.variable} ${manrope.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

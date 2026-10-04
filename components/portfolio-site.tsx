@@ -3,410 +3,238 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Check,
-  Code2,
-  Cpu,
-  Database,
   Download,
-  FolderGit2,
   Github,
-  GraduationCap,
   Linkedin,
   Mail,
   MapPin,
   Menu,
-  Network,
-  ShieldCheck,
   Sparkles,
-  Terminal,
+  SunMedium,
   X,
 } from "lucide-react";
-import {
-  achievements,
-  certifications,
-  education,
-  experience,
-  navItems,
-  profile,
-  projects,
-  skillGroups,
-} from "@/lib/portfolio";
+import { experience, navItems, profile, projects, resumeMeta, skills } from "@/lib/portfolio";
 
-const systemStatus = [
-  { label: "status", value: "online" },
-  { label: "focus", value: "systems software" },
-  { label: "stack", value: "C++ · GCP · Linux" },
-  { label: "location", value: "India" },
-];
+const fadeIn = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0 },
+};
 
-function SectionHeading({ number, title, copy }: { number: string; title: string; copy?: string }) {
-  return (
-    <div className="mb-10 max-w-2xl">
-      <p className="eyebrow">{number} / {title}</p>
-      <h2 className="font-mono text-3xl font-semibold text-white sm:text-4xl">{title}</h2>
-      {copy && <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">{copy}</p>}
-    </div>
-  );
+function SectionLabel({ children }: { children: string }) {
+  return <div className="soft-label mb-5 text-[#d7d0c8]">{children}</div>;
 }
 
 export function PortfolioSite() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
-    <main className="bg-[#040b16] text-slate-100">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-slate-950/75 backdrop-blur-xl">
-        <div className="shell flex h-20 items-center justify-between">
-          <a href="#home" className="flex items-center gap-3" onClick={closeMenu}>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500/10 font-mono text-sm font-bold text-cyan-300">
-              DPS
-            </span>
-            <div className="hidden sm:block">
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-slate-400">dev</div>
-              <div className="text-sm font-semibold text-slate-100">{profile.name}</div>
-            </div>
-          </a>
-
-          <nav
-            className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-[78px] flex-col gap-1 border-b border-slate-800 bg-slate-950/95 p-5 md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0`}
-          >
-            {navItems.map(({ href, label }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={closeMenu}
-                className="rounded-md px-2 py-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-300 transition hover:text-cyan-300"
-              >
-                {label}
-              </a>
-            ))}
-            <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-500/15 md:ml-2"
-            >
-              Resume <Download className="h-3.5 w-3.5" />
+    <main className="bg-[#121212] text-[#f2eee7]">
+      <div className="site-shell">
+        <header className="pt-5 sm:pt-7">
+          <div className="flex items-center justify-between gap-4">
+            <a href="#home" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f2eee7] text-lg font-bold text-[#121212] serif-display">
+                D
+              </div>
+              <div className="serif-display text-3xl leading-none text-[#f2eee7]">{profile.name}</div>
             </a>
-          </nav>
 
-          <button
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="rounded-md border border-slate-700 p-2 text-slate-200 md:hidden"
-          >
-            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </header>
+            <nav
+              className={`${menuOpen ? "flex" : "hidden"} absolute left-4 right-4 top-[73px] flex-col gap-2 rounded-[28px] border border-white/10 bg-[#181818] p-3 shadow-2xl shadow-black/30 md:static md:flex md:flex-row md:items-center md:gap-3 md:rounded-full md:border-transparent md:bg-[#1d1d1d] md:p-2`}
+            >
+              {navItems.map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`rounded-full px-4 py-2.5 text-sm font-medium text-[#ede7df] transition hover:bg-white/5 ${href === "#home" ? "bg-white/10" : ""}`}
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
 
-      <section id="home" className="relative overflow-hidden pt-28">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_22%),radial-gradient(circle_at_bottom_right,rgba(96,165,250,0.12),transparent_25%)]" />
-        <div className="shell relative grid min-h-[700px] items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(16,185,129,0.15)]" />
-              system initialized
-            </div>
+            <a
+              href={`mailto:${profile.email}`}
+              className="hidden items-center gap-2 rounded-full bg-[#f2eee7] px-4 py-2.5 text-sm font-medium text-[#121212] transition hover:bg-white md:inline-flex"
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-[#7bc9b3]" />
+              Get in touch
+            </a>
 
-            <h1 className="max-w-4xl text-5xl font-bold leading-[0.9] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
-              Dev Pratap Singh
-            </h1>
+            <button
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[#1d1d1d] md:hidden"
+            >
+              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </header>
 
-            <div className="mt-4 flex items-center gap-3 font-mono text-sm text-slate-300">
-              <Terminal className="h-4 w-4 text-cyan-300" />
-              <span>Software Engineer</span>
-            </div>
+        <section id="home" className="pb-10 pt-8 sm:pt-14">
+          <div className="mb-8 flex items-center gap-3 text-[#d7d0c8]">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#7bc9b3] shadow-[0_0_0_7px_rgba(123,201,179,0.12)]" />
+            <span className="soft-label text-[0.66rem] text-[#d7d0c8]">Software engineer · India</span>
+          </div>
 
-            <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
-              Building reliable systems for high-throughput data, concurrent services, and low-level performance-critical software.
-            </p>
+          <div className="flex items-start justify-between gap-6">
+            <motion.div initial="hidden" animate="show" variants={fadeIn} transition={{ duration: 0.45 }} className="max-w-5xl">
+              <h1 className="serif-display text-[4.5rem] leading-[0.8] tracking-[-0.06em] text-[#f2eee7] sm:text-[6.2rem] lg:text-[7.2rem]">
+                <span className="block">Dev</span>
+                <span className="block text-[#f2eee7]">Pratap</span>
+                <span className="block text-[#d96f48]">Singh.</span>
+              </h1>
+            </motion.div>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-950 transition hover:bg-cyan-300">
-                View Projects <ArrowDown className="h-4 w-4" />
-              </a>
-              <a href="/resume.pdf" download className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300">
-                Download Resume <Download className="h-4 w-4" />
-              </a>
-            </div>
+            <button
+              aria-label="Theme toggle"
+              className="hidden h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#1d1d1d] text-[#f2eee7] md:flex"
+            >
+              <SunMedium className="h-5 w-5" />
+            </button>
+          </div>
+        </section>
 
-            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-slate-300">
-              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-cyan-300">
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-cyan-300">
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 hover:text-cyan-300">
-                <Mail className="h-4 w-4" /> Email
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="relative mx-auto w-full max-w-lg">
-            <div className="absolute inset-0 rounded-[2rem] border border-cyan-400/20 bg-cyan-500/5 blur-2xl" />
-            <div className="relative rounded-[2rem] border border-slate-800 bg-slate-950/80 p-4 shadow-2xl shadow-cyan-950/20">
-              <div className="mb-4 flex items-center justify-between border-b border-slate-800 px-2 pb-3">
-                <div className="flex gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-400" />
-                  <span className="h-3 w-3 rounded-full bg-amber-400" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">profile.ts</div>
-              </div>
-
-              <div className="grid gap-4 rounded-2xl border border-slate-800 bg-[#081420] p-4 sm:grid-cols-[120px_1fr]">
-                <div className="flex items-center justify-center rounded-2xl border border-cyan-500/20 bg-[radial-gradient(circle_at_top,#1f3b65,#0a1524_58%)] p-4">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full border border-cyan-400/40 bg-slate-950 text-3xl font-bold text-cyan-300">
-                    DPS
-                  </div>
-                </div>
-
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">engineer profile</div>
-                  <h2 className="mt-3 text-2xl font-semibold text-white">Systems software engineer</h2>
-                  <p className="mt-3 text-sm leading-6 text-slate-300">
-                    Multithreading • networking • concurrency • distributed systems • high-performance software.
-                  </p>
-
-                  <div className="mt-5 grid gap-2 text-xs text-slate-300">
-                    {systemStatus.map((item) => (
-                      <div key={item.label} className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-2">
-                        <span className="font-mono uppercase tracking-[0.18em] text-slate-400">{item.label}</span>
-                        <span className="font-mono capitalize text-cyan-300">{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
+        <section id="about" className="py-10 sm:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }} variants={fadeIn} transition={{ duration: 0.45 }} className="overflow-hidden rounded-[30px] border border-white/8 bg-[#1b1b1d] p-4 shadow-[0_20px_35px_rgba(0,0,0,0.25)]">
+              <div className="flex h-[420px] items-end rounded-[24px] bg-[radial-gradient(circle_at_30%_20%,rgba(217,111,72,0.22),transparent_28%),radial-gradient(circle_at_75%_15%,rgba(123,201,179,0.12),transparent_30%),linear-gradient(135deg,#1b1b1d,#0e0f10_52%,#17191a)] p-6">
+                <div className="flex h-28 w-28 items-center justify-center rounded-full border border-[#f2eee7]/15 bg-[#121212] text-4xl font-medium text-[#f2eee7] serif-display">
+                  D
                 </div>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
 
-      <section id="about" className="shell py-24 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading number="01" title="About" copy="Systems software engineer focused on concurrency, networking, distributed systems, and performance-oriented engineering." />
+            <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeIn} transition={{ duration: 0.45 }} className="rounded-[30px] border border-white/8 bg-[#1a1a1b] p-7 sm:p-8">
+              <SectionLabel>About</SectionLabel>
+              <p className="max-w-xl text-[1.08rem] leading-8 text-[#d7d0c8]">
+                I am a Software Engineer based in India, building reliable systems and high-impact software with care for performance, clarity, and maintainability.
+              </p>
+              <p className="mt-5 max-w-xl text-[1.08rem] leading-8 text-[#d7d0c8]">
+                My focus sits at the intersection of systems programming, networking, concurrency, distributed software, and cloud-enabled analytics, with a strong interest in solving problems at the infrastructure layer.
+              </p>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="space-y-6 rounded-[1.75rem] border border-slate-800 bg-slate-900/60 p-7 text-base leading-8 text-slate-300 sm:p-8">
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">whoami</div>
-            <p>
-              I am a Computer Science and Engineering student at <span className="font-semibold text-white">NIT Tiruchirappalli</span>, with a strong interest in the systems layer where reliability, performance, and maintainability matter most.
-            </p>
-            <p>
-              My work spans multithreading, object-oriented design, networking, service integration, and cloud-driven analytics. I care deeply about clean interfaces, predictable behavior, and engineering decisions that reduce complexity while preserving throughput.
-            </p>
-            <p>
-              Through my internship at PwC India, I also developed practical experience in data engineering and cloud analytics, turning large operational datasets into usable, decision-friendly workflows.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Cpu className="h-3.5 w-3.5 text-cyan-300" /> systems</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Network className="h-3.5 w-3.5 text-cyan-300" /> networking</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Database className="h-3.5 w-3.5 text-cyan-300" /> data</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="skills" className="bg-slate-950/80 py-24 sm:py-28">
-        <div className="shell">
-          <SectionHeading number="02" title="Skills" copy="A focused stack built around systems thinking, performance, and reliable software engineering." />
-
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {skillGroups.map((group, index) => (
-              <motion.div
-                key={group.label}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: index * 0.04 }}
-                className="rounded-[1.6rem] border border-slate-800 bg-slate-900/70 p-5"
-              >
-                <div className="mb-5 flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 font-mono text-[10px] text-cyan-300">
-                    0{index + 1}
-                  </span>
-                  <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-slate-200">{group.label}</h3>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-white/8 bg-[#121212] p-4">
+                  <div className="soft-label text-[0.62rem] text-[#d7d0c8]">Education</div>
+                  <div className="mt-3 text-lg font-medium text-[#f2eee7]">NIT Tiruchirappalli</div>
+                  <div className="mt-2 text-sm text-[#d7d0c8]">B.Tech in Computer Science & Engineering</div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span key={item} className="rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1.5 text-xs text-slate-300">
-                      {item}
-                    </span>
-                  ))}
+                <div className="rounded-2xl border border-white/8 bg-[#121212] p-4">
+                  <div className="soft-label text-[0.62rem] text-[#d7d0c8]">Focus</div>
+                  <div className="mt-3 text-lg font-medium text-[#f2eee7]">Systems & data</div>
+                  <div className="mt-2 text-sm text-[#d7d0c8]">Concurrency, networking, performance, cloud analytics</div>
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="work" className="py-10 sm:py-16">
+          <SectionLabel>Experience</SectionLabel>
+          <div className="grid gap-5 lg:grid-cols-2">
+            {experience.map((item, index) => (
+              <motion.article key={item.role} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeIn} transition={{ duration: 0.45, delay: index * 0.06 }} className="rounded-[28px] border border-white/8 bg-[#1a1a1b] p-5 sm:p-6">
+                <div className="flex items-center justify-between gap-4 border-b border-white/8 pb-4">
+                  <div>
+                    <div className="soft-label text-[0.58rem] text-[#d7d0c8]">{item.period}</div>
+                    <h3 className="mt-2 text-2xl font-medium text-[#f2eee7]">{item.role}</h3>
+                  </div>
+                  <MapPin className="h-4 w-4 text-[#d96f48]" />
+                </div>
+                <div className="mt-4 text-lg text-[#f2eee7]">{item.company}</div>
+                <p className="mt-4 leading-7 text-[#d7d0c8]">{item.details}</p>
+              </motion.article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="experience" className="shell py-24 sm:py-28">
-        <SectionHeading number="03" title="Experience" copy="Applying systems thinking to cloud analytics, data pipelines, and performance-sensitive software." />
-
-        <div className="space-y-8">
-          {experience.map((item) => (
-            <motion.article key={item.role} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[1.75rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
-              <div className="flex flex-col gap-4 border-b border-slate-800 pb-5 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">{item.period}</div>
-                  <h3 className="mt-2 text-2xl font-semibold text-white">{item.role}</h3>
-                  <p className="mt-2 text-slate-300">{item.company}</p>
-                </div>
-                <div className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
-                  {item.title}
-                </div>
-              </div>
-
-              <ul className="mt-6 space-y-4">
-                {item.points.map((point) => (
-                  <li key={point} className="flex gap-3 text-slate-300">
-                    <Check className="mt-1 h-4 w-4 shrink-0 text-cyan-300" />
-                    <span className="leading-7">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      <section id="projects" className="bg-slate-950/80 py-24 sm:py-28">
-        <div className="shell">
-          <SectionHeading number="04" title="Projects" copy="High-signal systems work with a strong emphasis on performance, observability, and engineering depth." />
-
+        <section id="projects" className="py-10 sm:py-16">
+          <SectionLabel>Projects</SectionLabel>
           <div className="grid gap-5 lg:grid-cols-3">
             {projects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="flex h-full flex-col rounded-[1.7rem] border border-slate-800 bg-slate-900/70 p-5"
-              >
-                <div className="mb-6 flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">{project.tag}</span>
-                  <span className="font-mono text-xs text-slate-500">0{index + 1}</span>
+              <motion.article key={project.title} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeIn} transition={{ duration: 0.45, delay: index * 0.06 }} className="group rounded-[30px] border border-white/8 bg-[#1a1a1b] p-5">
+                <div className={`rounded-[22px] border border-white/8 bg-gradient-to-br ${project.accent} p-4`}>
+                  <div className="soft-label text-[0.58rem] text-[#d7d0c8]">{project.category}</div>
+                  <h3 className="mt-5 text-3xl text-[#f2eee7] serif-display">{project.title}</h3>
                 </div>
 
-                <div className={`mb-6 rounded-2xl border p-4 ${project.accent === "cyan" ? "border-cyan-500/30 bg-cyan-500/10" : project.accent === "violet" ? "border-violet-500/30 bg-violet-500/10" : "border-amber-500/25 bg-amber-500/10"}`}>
-                  <FolderGit2 className="mb-3 h-8 w-8 text-cyan-300" />
-                  <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-                </div>
+                <p className="mt-5 text-[0.98rem] leading-7 text-[#d7d0c8]">{project.description}</p>
 
-                <p className="text-sm leading-7 text-slate-300">{project.description}</p>
-
-                <div className="mt-5 rounded-xl border border-slate-800 bg-slate-950/80 p-3">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">outcome</div>
-                  <p className="mt-2 text-sm leading-6 text-slate-200">{project.outcome}</p>
+                <div className="mt-5 rounded-2xl border border-white/8 bg-[#121212] p-3">
+                  <div className="soft-label text-[0.56rem] text-[#d7d0c8]">Outcome</div>
+                  <p className="mt-2 text-sm leading-6 text-[#f2eee7]">{project.outcome}</p>
                 </div>
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {project.stack.map((item) => (
-                    <span key={item} className="rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1 text-[11px] text-slate-300">
+                    <span key={item} className="rounded-full border border-white/8 bg-[#121212] px-2.5 py-1 text-[11px] text-[#d7d0c8]">
                       {item}
                     </span>
                   ))}
                 </div>
 
-                <ul className="mt-5 space-y-2">
-                  {project.metrics.map((metric) => (
-                    <li key={metric} className="flex items-start gap-2 text-sm text-slate-300">
-                      <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-cyan-300" />
-                      <span>{metric}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto pt-6">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300 transition hover:text-cyan-200">
-                    View repository <ArrowUpRight className="h-3.5 w-3.5" />
-                  </a>
-                </div>
+                <a href={profile.github} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#f2eee7] transition group-hover:text-[#d96f48]">
+                  View repository <ArrowUpRight className="h-4 w-4" />
+                </a>
               </motion.article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="education" className="shell py-24 sm:py-28">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[1.8rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
-            <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
-              <GraduationCap className="h-4 w-4" />
-              Education
-            </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">{education.period}</p>
-            <h3 className="mt-3 text-2xl font-semibold text-white">{education.degree}</h3>
-            <p className="mt-2 text-slate-300">{education.school}</p>
-            <p className="mt-5 leading-7 text-slate-300">{education.details}</p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.05 }} className="rounded-[1.8rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
-            <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
-              <Sparkles className="h-4 w-4" />
-              achievements
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {achievements.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-950/80 p-4">
-                  <div className="text-2xl font-bold text-white">{item.value}</div>
-                  <div className="mt-2 text-sm leading-6 text-slate-300">{item.label}</div>
-                </div>
+        <section id="uses" className="py-10 sm:py-16">
+          <SectionLabel>Uses</SectionLabel>
+          <div className="rounded-[28px] border border-white/8 bg-[#1a1a1b] p-6 sm:p-7">
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
+                <span key={skill} className="rounded-full border border-white/8 bg-[#121212] px-3 py-2 text-sm text-[#d7d0c8]">
+                  {skill}
+                </span>
               ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="certifications" className="bg-slate-950/80 py-24 sm:py-28">
-        <div className="shell">
-          <SectionHeading number="05" title="Certifications" copy="Practical, industry-aligned experience in cloud analytics, systems engineering, and data-heavy software delivery." />
-          <div className="grid gap-4 md:grid-cols-2">
-            {certifications.map((item) => (
-              <motion.div key={item} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.4 }} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-slate-300">
-                <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-cyan-300" />
-                <span className="leading-7">{item}</span>
-              </motion.div>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="contact" className="shell py-24 sm:py-28">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[2rem] border border-cyan-500/30 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_32%),linear-gradient(135deg,#0b1729,#0f2136)] p-7 sm:p-10">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">06 / contact</div>
-              <h2 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-white sm:text-5xl">
-                Let&apos;s build the next reliable system.
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-950 transition hover:bg-cyan-300">
-                <Mail className="h-4 w-4" /> {profile.email}
-              </a>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300">
-                <Github className="h-4 w-4" /> GitHub
+        <section className="py-10 sm:py-16">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="rounded-[30px] border border-white/8 bg-[#1a1a1b] p-6 sm:p-7">
+              <div className="soft-label text-[0.58rem] text-[#d7d0c8]">Resume</div>
+              <h3 className="mt-4 serif-display text-4xl text-[#f2eee7]">The long version, printable.</h3>
+              <p className="mt-3 text-[#d7d0c8]">{resumeMeta.pages} · {resumeMeta.updated}</p>
+              <a href="/resume.pdf" download className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-4 py-2.5 text-sm font-medium text-[#121212] transition hover:bg-white">
+                Download resume <Download className="h-4 w-4" />
               </a>
             </div>
-          </div>
-        </motion.div>
-      </section>
 
-      <footer className="border-t border-slate-800 bg-slate-950/80 py-7">
-        <div className="shell flex flex-col gap-4 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {profile.name}. Built for performance and clarity.</p>
+            <div className="rounded-[30px] border border-[#d96f48]/25 bg-[#1b1b1d] p-6 sm:p-7">
+              <div className="soft-label text-[0.58rem] text-[#d7d0c8]">Contact</div>
+              <div className="mt-4 flex items-center gap-3 text-[#f2eee7]">
+                <Mail className="h-5 w-5 text-[#d96f48]" />
+                <a href={`mailto:${profile.email}`} className="text-lg hover:text-[#d96f48]">{profile.email}</a>
+              </div>
+              <div className="mt-5 flex items-center gap-3 text-[#f2eee7]">
+                <Github className="h-5 w-5 text-[#d96f48]" />
+                <a href={profile.github} target="_blank" rel="noreferrer" className="text-lg hover:text-[#d96f48]">github.com/9089huckleberry</a>
+              </div>
+              <div className="mt-5 flex items-center gap-3 text-[#f2eee7]">
+                <Linkedin className="h-5 w-5 text-[#d96f48]" />
+                <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-lg hover:text-[#d96f48]">linkedin.com/in/dev-pratap-singh</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer className="border-t border-white/8 py-7">
+        <div className="site-shell flex flex-col gap-4 text-sm text-[#d7d0c8] sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {profile.name}</p>
           <div className="flex items-center gap-5">
-            <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-cyan-300">GitHub</a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-cyan-300">LinkedIn</a>
-            <a href="/resume.pdf" download className="hover:text-cyan-300">Resume</a>
+            <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-[#d96f48]">GitHub</a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-[#d96f48]">LinkedIn</a>
+            <a href="/resume.pdf" download className="hover:text-[#d96f48]">Resume</a>
           </div>
         </div>
       </footer>
