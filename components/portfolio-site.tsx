@@ -4,18 +4,24 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
+  ArrowRight,
   ArrowUpRight,
   Check,
-  ChevronRight,
   Code2,
+  Cpu,
+  Database,
   Download,
+  FolderGit2,
   Github,
+  GraduationCap,
   Linkedin,
   Mail,
   MapPin,
   Menu,
-  MousePointer2,
+  Network,
+  ShieldCheck,
   Sparkles,
+  Terminal,
   X,
 } from "lucide-react";
 import {
@@ -23,31 +29,25 @@ import {
   certifications,
   education,
   experience,
+  navItems,
   profile,
   projects,
   skillGroups,
 } from "@/lib/portfolio";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
-};
-
-const navItems = [
-  ["about", "About"],
-  ["work", "Work"],
-  ["skills", "Skills"],
-  ["contact", "Contact"],
+const systemStatus = [
+  { label: "status", value: "online" },
+  { label: "focus", value: "systems software" },
+  { label: "stack", value: "C++ · GCP · Linux" },
+  { label: "location", value: "India" },
 ];
 
 function SectionHeading({ number, title, copy }: { number: string; title: string; copy?: string }) {
   return (
-    <div className="mb-12 max-w-2xl">
-      <p className="eyebrow">
-        {number} / {title}
-      </p>
-      <h2 className="display-font text-4xl leading-tight sm:text-5xl">{title}</h2>
-      {copy && <p className="mt-4 max-w-xl text-base leading-7 text-[#647089]">{copy}</p>}
+    <div className="mb-10 max-w-2xl">
+      <p className="eyebrow">{number} / {title}</p>
+      <h2 className="font-mono text-3xl font-semibold text-white sm:text-4xl">{title}</h2>
+      {copy && <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">{copy}</p>}
     </div>
   );
 }
@@ -58,95 +58,275 @@ export function PortfolioSite() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main className="overflow-hidden">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#e3e7ef]/80 bg-[#f7f8fb]/90 backdrop-blur-xl">
-        <div className="section-shell flex h-[72px] items-center justify-between">
-          <a href="#top" className="group flex items-center gap-3" onClick={closeMenu}>
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#172033] text-sm font-bold text-white transition-transform group-hover:rotate-6">
-              D
+    <main className="bg-[#040b16] text-slate-100">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-slate-950/75 backdrop-blur-xl">
+        <div className="shell flex h-20 items-center justify-between">
+          <a href="#home" className="flex items-center gap-3" onClick={closeMenu}>
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500/10 font-mono text-sm font-bold text-cyan-300">
+              DPS
             </span>
-            <span className="hidden text-sm font-bold tracking-tight sm:block">{profile.name}</span>
+            <div className="hidden sm:block">
+              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-slate-400">dev</div>
+              <div className="text-sm font-semibold text-slate-100">{profile.name}</div>
+            </div>
           </a>
-          <nav className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-[72px] flex-col gap-1 border-b border-[#e3e7ef] bg-[#f7f8fb] p-5 md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0`}>
-            {navItems.map(([href, label]) => (
-              <a key={href} href={`#${href}`} onClick={closeMenu} className="rounded-md px-2 py-2 text-sm font-semibold text-[#647089] transition-colors hover:text-[#2756e8]">
+
+          <nav
+            className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-[78px] flex-col gap-1 border-b border-slate-800 bg-slate-950/95 p-5 md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0`}
+          >
+            {navItems.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={closeMenu}
+                className="rounded-md px-2 py-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-300 transition hover:text-cyan-300"
+              >
                 {label}
               </a>
             ))}
-            <a href={`mailto:${profile.email}`} onClick={closeMenu} className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#2756e8] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#2756e8]/20 transition hover:-translate-y-0.5 hover:bg-[#1d46ca] md:mt-0">
-              Let&apos;s talk <ArrowUpRight className="h-4 w-4" />
+            <a
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-500/15 md:ml-2"
+            >
+              Resume <Download className="h-3.5 w-3.5" />
             </a>
           </nav>
-          <button aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(!menuOpen)} className="rounded-md p-2 md:hidden">
+
+          <button
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-md border border-slate-700 p-2 text-slate-200 md:hidden"
+          >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </header>
 
-      <section id="top" className="grid-paper relative flex min-h-[720px] items-center pt-28">
-        <div className="pointer-events-none absolute -right-48 top-24 h-[520px] w-[520px] rounded-full bg-[#2756e8]/10 blur-3xl" />
-        <div className="section-shell relative grid gap-14 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp}>
-            <p className="mb-6 flex items-center gap-2 text-sm font-bold text-[#ec7b45]">
-              <span className="h-2 w-2 rounded-full bg-[#ec7b45] shadow-[0_0_0_5px_rgba(236,123,69,0.12)]" />
-              Available for thoughtful opportunities
-            </p>
-            <h1 className="display-font max-w-3xl text-6xl leading-[0.95] tracking-[-0.04em] sm:text-8xl">
-              {profile.name.split(" ")[0]} builds <span className="text-[#2756e8]">with intent.</span>
+      <section id="home" className="relative overflow-hidden pt-28">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_22%),radial-gradient(circle_at_bottom_right,rgba(96,165,250,0.12),transparent_25%)]" />
+        <div className="shell relative grid min-h-[700px] items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
+          <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(16,185,129,0.15)]" />
+              system initialized
+            </div>
+
+            <h1 className="max-w-4xl text-5xl font-bold leading-[0.9] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
+              Dev Pratap Singh
             </h1>
-            <p className="mt-8 max-w-xl text-lg leading-8 text-[#647089]">{profile.intro}</p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#work" className="inline-flex items-center gap-2 rounded-full bg-[#2756e8] px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#2756e8]/20 transition hover:-translate-y-1 hover:bg-[#1d46ca]">
-                Explore my work <ArrowDown className="h-4 w-4" />
+
+            <div className="mt-4 flex items-center gap-3 font-mono text-sm text-slate-300">
+              <Terminal className="h-4 w-4 text-cyan-300" />
+              <span>Software Engineer</span>
+            </div>
+
+            <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
+              Building reliable systems for high-throughput data, concurrent services, and low-level performance-critical software.
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-950 transition hover:bg-cyan-300">
+                View Projects <ArrowDown className="h-4 w-4" />
               </a>
-              <a href="/resume.pdf" download className="inline-flex items-center gap-2 rounded-full border border-[#cfd6e3] bg-white px-6 py-3.5 text-sm font-bold transition hover:-translate-y-1 hover:border-[#2756e8] hover:text-[#2756e8]">
-                Download resume <Download className="h-4 w-4" />
+              <a href="/resume.pdf" download className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300">
+                Download Resume <Download className="h-4 w-4" />
               </a>
             </div>
-            <div className="mt-9 flex flex-wrap items-center gap-5 text-sm text-[#647089]">
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-[#2756e8]" />{profile.location}</span>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-semibold hover:text-[#2756e8]"><Github className="h-4 w-4" /> GitHub</a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-semibold hover:text-[#2756e8]"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+
+            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-slate-300">
+              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-cyan-300">
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-cyan-300">
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 hover:text-cyan-300">
+                <Mail className="h-4 w-4" /> Email
+              </a>
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="relative mx-auto w-full max-w-md">
-            <div className="absolute -inset-5 rounded-[2.5rem] border border-[#2756e8]/15" />
-            <div className="relative overflow-hidden rounded-[2rem] bg-[#172033] p-8 text-white shadow-2xl shadow-[#172033]/20">
-              <div className="mb-16 flex items-center justify-between text-xs text-white/50"><span>DEV / 2024</span><Code2 className="h-5 w-5 text-[#71a0ff]" /></div>
-              <p className="font-mono text-sm leading-7 text-[#aab9d7]">&lt;building /&gt;</p>
-              <p className="mt-2 text-3xl font-bold leading-tight">Systems that are<br /><span className="text-[#71a0ff]">clear, useful,</span><br />and built to last.</p>
-              <div className="mt-16 flex items-end justify-between"><span className="text-xs text-white/50">scroll to explore</span><MousePointer2 className="h-5 w-5 animate-bounce text-[#ec7b45]" /></div>
+
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="relative mx-auto w-full max-w-lg">
+            <div className="absolute inset-0 rounded-[2rem] border border-cyan-400/20 bg-cyan-500/5 blur-2xl" />
+            <div className="relative rounded-[2rem] border border-slate-800 bg-slate-950/80 p-4 shadow-2xl shadow-cyan-950/20">
+              <div className="mb-4 flex items-center justify-between border-b border-slate-800 px-2 pb-3">
+                <div className="flex gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-400" />
+                  <span className="h-3 w-3 rounded-full bg-amber-400" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">profile.ts</div>
+              </div>
+
+              <div className="grid gap-4 rounded-2xl border border-slate-800 bg-[#081420] p-4 sm:grid-cols-[120px_1fr]">
+                <div className="flex items-center justify-center rounded-2xl border border-cyan-500/20 bg-[radial-gradient(circle_at_top,#1f3b65,#0a1524_58%)] p-4">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full border border-cyan-400/40 bg-slate-950 text-3xl font-bold text-cyan-300">
+                    DPS
+                  </div>
+                </div>
+
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">engineer profile</div>
+                  <h2 className="mt-3 text-2xl font-semibold text-white">Systems software engineer</h2>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">
+                    Multithreading • networking • concurrency • distributed systems • high-performance software.
+                  </p>
+
+                  <div className="mt-5 grid gap-2 text-xs text-slate-300">
+                    {systemStatus.map((item) => (
+                      <div key={item.label} className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-2">
+                        <span className="font-mono uppercase tracking-[0.18em] text-slate-400">{item.label}</span>
+                        <span className="font-mono capitalize text-cyan-300">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      <section id="about" className="section-shell grid gap-12 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr]">
-        <SectionHeading number="01" title="A little about me." copy="Curious by default, deliberate by practice." />
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fadeUp} className="space-y-6 text-lg leading-8 text-[#647089]">
-          <p>I’m a computer science undergraduate at <strong className="text-[#172033]">NIT Tiruchirappalli</strong>, interested in the space where product thinking meets engineering depth.</p>
-          <p>Whether I’m shaping a clean interface, building a concurrent server, or making a data workflow more dependable, I care about the details that make technology feel effortless for the people using it.</p>
-          <a href="#contact" className="inline-flex items-center gap-2 text-sm font-bold text-[#2756e8] hover:gap-3 transition-all">Let&apos;s build something meaningful <ChevronRight className="h-4 w-4" /></a>
-        </motion.div>
+      <section id="about" className="shell py-24 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <SectionHeading number="01" title="About" copy="Systems software engineer focused on concurrency, networking, distributed systems, and performance-oriented engineering." />
+
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="space-y-6 rounded-[1.75rem] border border-slate-800 bg-slate-900/60 p-7 text-base leading-8 text-slate-300 sm:p-8">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">whoami</div>
+            <p>
+              I am a Computer Science and Engineering student at <span className="font-semibold text-white">NIT Tiruchirappalli</span>, with a strong interest in the systems layer where reliability, performance, and maintainability matter most.
+            </p>
+            <p>
+              My work spans multithreading, object-oriented design, networking, service integration, and cloud-driven analytics. I care deeply about clean interfaces, predictable behavior, and engineering decisions that reduce complexity while preserving throughput.
+            </p>
+            <p>
+              Through my internship at PwC India, I also developed practical experience in data engineering and cloud analytics, turning large operational datasets into usable, decision-friendly workflows.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Cpu className="h-3.5 w-3.5 text-cyan-300" /> systems</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Network className="h-3.5 w-3.5 text-cyan-300" /> networking</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-3 py-2 text-xs font-mono uppercase tracking-[0.18em] text-slate-200"><Database className="h-3.5 w-3.5 text-cyan-300" /> data</span>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      <section id="work" className="bg-white py-24 sm:py-32">
-        <div className="section-shell">
-          <SectionHeading number="02" title="Selected work." copy="A few projects that show how I think, build, and learn." />
+      <section id="skills" className="bg-slate-950/80 py-24 sm:py-28">
+        <div className="shell">
+          <SectionHeading number="02" title="Skills" copy="A focused stack built around systems thinking, performance, and reliable software engineering." />
+
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {skillGroups.map((group, index) => (
+              <motion.div
+                key={group.label}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.04 }}
+                className="rounded-[1.6rem] border border-slate-800 bg-slate-900/70 p-5"
+              >
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 font-mono text-[10px] text-cyan-300">
+                    0{index + 1}
+                  </span>
+                  <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-slate-200">{group.label}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span key={item} className="rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1.5 text-xs text-slate-300">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" className="shell py-24 sm:py-28">
+        <SectionHeading number="03" title="Experience" copy="Applying systems thinking to cloud analytics, data pipelines, and performance-sensitive software." />
+
+        <div className="space-y-8">
+          {experience.map((item) => (
+            <motion.article key={item.role} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[1.75rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
+              <div className="flex flex-col gap-4 border-b border-slate-800 pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">{item.period}</div>
+                  <h3 className="mt-2 text-2xl font-semibold text-white">{item.role}</h3>
+                  <p className="mt-2 text-slate-300">{item.company}</p>
+                </div>
+                <div className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
+                  {item.title}
+                </div>
+              </div>
+
+              <ul className="mt-6 space-y-4">
+                {item.points.map((point) => (
+                  <li key={point} className="flex gap-3 text-slate-300">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-cyan-300" />
+                    <span className="leading-7">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section id="projects" className="bg-slate-950/80 py-24 sm:py-28">
+        <div className="shell">
+          <SectionHeading number="04" title="Projects" copy="High-signal systems work with a strong emphasis on performance, observability, and engineering depth." />
+
           <div className="grid gap-5 lg:grid-cols-3">
             {projects.map((project, index) => (
-              <motion.article key={project.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { ...(fadeUp.visible.transition as { duration?: number }), delay: index * 0.08 } } }} className="group flex flex-col rounded-2xl border border-[#e3e7ef] bg-[#f7f8fb] p-6 transition-all hover:-translate-y-2 hover:border-[#2756e8]/30 hover:shadow-xl hover:shadow-[#172033]/5">
-                <div className={`mb-12 flex h-40 items-end justify-between rounded-xl p-5 ${project.accent === "blue" ? "bg-[#dfe8ff]" : project.accent === "orange" ? "bg-[#ffeadf]" : "bg-[#dfe3eb]"}`}>
-                  <span className="text-xs font-black tracking-[0.18em] text-[#172033]/60">{project.label}</span>
-                  <span className="display-font text-6xl text-[#172033]/15">0{index + 1}</span>
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.05 }}
+                className="flex h-full flex-col rounded-[1.7rem] border border-slate-800 bg-slate-900/70 p-5"
+              >
+                <div className="mb-6 flex items-center justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">{project.tag}</span>
+                  <span className="font-mono text-xs text-slate-500">0{index + 1}</span>
                 </div>
-                <h3 className="text-2xl font-bold">{project.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-[#647089]">{project.description}</p>
-                <p className="mt-5 flex items-start gap-2 text-sm font-bold text-[#172033]"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#2756e8]" />{project.outcome}</p>
-                <div className="mt-6 flex flex-wrap gap-2">{project.stack.map((item) => <span key={item} className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[#647089]">{item}</span>)}</div>
-                <div className="mt-7 flex gap-4 border-t border-[#e3e7ef] pt-5 text-sm font-bold">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-[#2756e8]"><Github className="h-4 w-4" /> Repository</a>
-                  {project.demo && <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-[#2756e8]"><ArrowUpRight className="h-4 w-4" /> Live demo</a>}
+
+                <div className={`mb-6 rounded-2xl border p-4 ${project.accent === "cyan" ? "border-cyan-500/30 bg-cyan-500/10" : project.accent === "violet" ? "border-violet-500/30 bg-violet-500/10" : "border-amber-500/25 bg-amber-500/10"}`}>
+                  <FolderGit2 className="mb-3 h-8 w-8 text-cyan-300" />
+                  <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+                </div>
+
+                <p className="text-sm leading-7 text-slate-300">{project.description}</p>
+
+                <div className="mt-5 rounded-xl border border-slate-800 bg-slate-950/80 p-3">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">outcome</div>
+                  <p className="mt-2 text-sm leading-6 text-slate-200">{project.outcome}</p>
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.stack.map((item) => (
+                    <span key={item} className="rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1 text-[11px] text-slate-300">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+
+                <ul className="mt-5 space-y-2">
+                  {project.metrics.map((metric) => (
+                    <li key={metric} className="flex items-start gap-2 text-sm text-slate-300">
+                      <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-cyan-300" />
+                      <span>{metric}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-6">
+                  <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300 transition hover:text-cyan-200">
+                    View repository <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
                 </div>
               </motion.article>
             ))}
@@ -154,46 +334,80 @@ export function PortfolioSite() {
         </div>
       </section>
 
-      <section id="skills" className="section-shell py-24 sm:py-32">
-        <SectionHeading number="03" title="The toolkit." copy="Technologies I use to turn an idea into a dependable result." />
-        <div className="grid gap-5 sm:grid-cols-2">
-          {skillGroups.map((group, index) => (
-            <motion.div key={group.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="rounded-2xl border border-[#e3e7ef] bg-white p-7">
-              <p className="mb-6 flex items-center gap-3 text-sm font-bold"><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#eaf0ff] text-xs text-[#2756e8]">0{index + 1}</span>{group.label}</p>
-              <div className="flex flex-wrap gap-2">{group.items.map((item) => <span key={item} className="rounded-lg border border-[#e3e7ef] px-3 py-2 text-sm font-semibold text-[#647089] transition hover:border-[#2756e8] hover:text-[#2756e8]">{item}</span>)}</div>
-            </motion.div>
-          ))}
+      <section id="education" className="shell py-24 sm:py-28">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[1.8rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
+            <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
+              <GraduationCap className="h-4 w-4" />
+              Education
+            </div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">{education.period}</p>
+            <h3 className="mt-3 text-2xl font-semibold text-white">{education.degree}</h3>
+            <p className="mt-2 text-slate-300">{education.school}</p>
+            <p className="mt-5 leading-7 text-slate-300">{education.details}</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.05 }} className="rounded-[1.8rem] border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
+            <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">
+              <Sparkles className="h-4 w-4" />
+              achievements
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {achievements.map((item) => (
+                <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-950/80 p-4">
+                  <div className="text-2xl font-bold text-white">{item.value}</div>
+                  <div className="mt-2 text-sm leading-6 text-slate-300">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section id="experience" className="bg-[#172033] py-24 text-white sm:py-32">
-        <div className="section-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-          <div><p className="eyebrow !text-[#71a0ff] before:!bg-[#71a0ff]">04 / experience</p><h2 className="display-font text-4xl sm:text-5xl">Where I&apos;ve<br /><span className="text-[#71a0ff]">made an impact.</span></h2></div>
-          <div className="space-y-12">
-            {experience.map((item) => <div key={item.role} className="border-l border-white/20 pl-6"><p className="mb-2 text-sm font-bold text-[#71a0ff]">{item.period}</p><h3 className="text-2xl font-bold">{item.role}</h3><p className="mt-1 text-[#aab9d7]">{item.company}</p><ul className="mt-6 space-y-3 text-sm leading-6 text-[#c6cee0]">{item.points.map((point) => <li key={point} className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ec7b45]" />{point}</li>)}</ul></div>)}
-            <div className="border-l border-white/20 pl-6"><p className="mb-2 text-sm font-bold text-[#71a0ff]">{education.period}</p><h3 className="text-2xl font-bold">{education.degree}</h3><p className="mt-1 text-[#aab9d7]">{education.school}</p><p className="mt-5 text-sm leading-6 text-[#c6cee0]">{education.details}</p></div>
+      <section id="certifications" className="bg-slate-950/80 py-24 sm:py-28">
+        <div className="shell">
+          <SectionHeading number="05" title="Certifications" copy="Practical, industry-aligned experience in cloud analytics, systems engineering, and data-heavy software delivery." />
+          <div className="grid gap-4 md:grid-cols-2">
+            {certifications.map((item) => (
+              <motion.div key={item} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.4 }} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-slate-300">
+                <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-cyan-300" />
+                <span className="leading-7">{item}</span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section-shell py-24 sm:py-32">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
-          <div><SectionHeading number="05" title="Proof points." copy="The outcomes and interests I bring into a team." /><div className="grid grid-cols-3 gap-3">{achievements.map((item) => <div key={item.value} className="border-t-2 border-[#2756e8] pt-4"><p className="text-2xl font-black sm:text-3xl">{item.value}</p><p className="mt-2 text-xs leading-5 text-[#647089]">{item.label}</p></div>)}</div></div>
-          <div className="rounded-2xl bg-[#eaf0ff] p-7 sm:p-9"><div className="flex items-center gap-3"><Sparkles className="h-5 w-5 text-[#2756e8]" /><h3 className="text-lg font-bold">Certifications & achievements</h3></div><ul className="mt-7 space-y-4">{certifications.map((item) => <li key={item} className="flex gap-3 text-sm leading-6 text-[#405070]"><Check className="mt-1 h-4 w-4 shrink-0 text-[#2756e8]" />{item}</li>)}</ul></div>
-        </div>
+      <section id="contact" className="shell py-24 sm:py-28">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="rounded-[2rem] border border-cyan-500/30 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_32%),linear-gradient(135deg,#0b1729,#0f2136)] p-7 sm:p-10">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">06 / contact</div>
+              <h2 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-white sm:text-5xl">
+                Let&apos;s build the next reliable system.
+              </h2>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-950 transition hover:bg-cyan-300">
+                <Mail className="h-4 w-4" /> {profile.email}
+              </a>
+              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/80 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300">
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
-      <section id="contact" className="bg-[#ec7b45] py-24 sm:py-32">
-        <div className="section-shell grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div><p className="mb-5 text-xs font-black uppercase tracking-[0.2em] text-white/70">06 / contact</p><h2 className="display-font max-w-2xl text-5xl leading-tight text-white sm:text-7xl">Have a good problem?<br />Let&apos;s talk.</h2><p className="mt-6 max-w-lg text-base leading-7 text-white/80">I&apos;m open to internships, full-time roles, and conversations about building better software.</p></div>
-          <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-3 self-start rounded-full bg-white px-6 py-4 text-sm font-bold text-[#172033] transition hover:-translate-y-1 hover:shadow-xl lg:self-end"><Mail className="h-5 w-5 text-[#ec7b45]" /> {profile.email}</a>
-        </div>
-      </section>
-
-      <footer className="bg-[#172033] py-8 text-white">
-        <div className="section-shell flex flex-col gap-5 text-sm text-[#aab9d7] sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {profile.name}. Built with care.</p>
-          <div className="flex items-center gap-5"><a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-white"><Github className="h-5 w-5" /></a><a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-white"><Linkedin className="h-5 w-5" /></a><a href="#top" className="flex items-center gap-2 font-bold hover:text-white">Back to top <ArrowUpRight className="h-4 w-4" /></a></div>
+      <footer className="border-t border-slate-800 bg-slate-950/80 py-7">
+        <div className="shell flex flex-col gap-4 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {profile.name}. Built for performance and clarity.</p>
+          <div className="flex items-center gap-5">
+            <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-cyan-300">GitHub</a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-cyan-300">LinkedIn</a>
+            <a href="/resume.pdf" download className="hover:text-cyan-300">Resume</a>
+          </div>
         </div>
       </footer>
     </main>
