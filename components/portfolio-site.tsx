@@ -30,7 +30,7 @@ import {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
 };
 
 const navItems = [
@@ -135,7 +135,7 @@ export function PortfolioSite() {
           <SectionHeading number="02" title="Selected work." copy="A few projects that show how I think, build, and learn." />
           <div className="grid gap-5 lg:grid-cols-3">
             {projects.map((project, index) => (
-              <motion.article key={project.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { ...fadeUp.visible.transition, delay: index * 0.08 } } }} className="group flex flex-col rounded-2xl border border-[#e3e7ef] bg-[#f7f8fb] p-6 transition-all hover:-translate-y-2 hover:border-[#2756e8]/30 hover:shadow-xl hover:shadow-[#172033]/5">
+              <motion.article key={project.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { ...(fadeUp.visible.transition as { duration?: number }), delay: index * 0.08 } } }} className="group flex flex-col rounded-2xl border border-[#e3e7ef] bg-[#f7f8fb] p-6 transition-all hover:-translate-y-2 hover:border-[#2756e8]/30 hover:shadow-xl hover:shadow-[#172033]/5">
                 <div className={`mb-12 flex h-40 items-end justify-between rounded-xl p-5 ${project.accent === "blue" ? "bg-[#dfe8ff]" : project.accent === "orange" ? "bg-[#ffeadf]" : "bg-[#dfe3eb]"}`}>
                   <span className="text-xs font-black tracking-[0.18em] text-[#172033]/60">{project.label}</span>
                   <span className="display-font text-6xl text-[#172033]/15">0{index + 1}</span>
