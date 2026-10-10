@@ -1,7 +1,28 @@
 # Dev Pratap Singh — Portfolio
 
 A recruiter-focused, frontend-only portfolio built with Next.js App Router,
-TypeScript, Tailwind CSS, Framer Motion, and Lucide React.
+TypeScript, Tailwind CSS, Motion, Lucide React, shadcn/ui, and Bklit UI.
+
+## UI setup
+
+The project uses shadcn/ui as its local component foundation and Bklit UI as a
+configured component registry:
+
+```json
+"registries": {
+  "@bklit": "https://ui.bklit.com/r/{name}.json"
+}
+```
+
+Install additional verified Bklit components with:
+
+```bash
+npx shadcn@latest add @bklit/<component-name>
+```
+
+The portfolio currently uses Bklit's `ShimmeringText` component for the
+availability status in the hero and the local shadcn Button for accessible
+primary actions.
 
 ## Local development
 

@@ -1,20 +1,33 @@
+@import "../node_modules/tw-animate-css/dist/tw-animate.css";
+@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #121212;
-  --bg-alt: #171819;
-  --panel: #1d1d1d;
-  --panel-strong: #202020;
-  --line: rgba(255, 255, 255, 0.08);
-  --text: #f2eee7;
-  --muted: #c7bfb3;
-  --soft: #d7d0c8;
-  --accent: #d96f48;
-  --accent-soft: rgba(217, 111, 72, 0.12);
-  --green: #7bc9b3;
-  --shadow: rgba(0, 0, 0, 0.32);
+  --background: oklch(0.145 0.012 70);
+  --foreground: oklch(0.94 0.018 75);
+  --card: oklch(0.185 0.012 70);
+  --card-foreground: oklch(0.94 0.018 75);
+  --popover: oklch(0.185 0.012 70);
+  --popover-foreground: oklch(0.94 0.018 75);
+  --primary: oklch(0.94 0.018 75);
+  --primary-foreground: oklch(0.145 0.012 70);
+  --secondary: oklch(0.235 0.012 70);
+  --secondary-foreground: oklch(0.94 0.018 75);
+  --muted: oklch(0.22 0.012 70);
+  --muted-foreground: oklch(0.68 0.018 72);
+  --accent: oklch(0.68 0.16 42);
+  --accent-foreground: oklch(0.98 0.01 75);
+  --destructive: oklch(0.62 0.2 25);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.68 0.16 42);
+  --radius: 0.8rem;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -22,16 +35,12 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans), sans-serif;
   min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 ::selection {
@@ -44,19 +53,55 @@ body {
   letter-spacing: -0.06em;
 }
 
-.soft-label {
-  letter-spacing: 0.22em;
+.eyebrow {
+  color: var(--muted-foreground);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
   text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--soft);
 }
 
-.text-balance {
-  text-wrap: balance;
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  width: fit-content;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+
+.link-arrow:hover {
+  color: var(--accent);
+}
+
+.link-arrow svg {
+  transition: transform 180ms ease;
+}
+
+.link-arrow:hover svg {
+  transform: translate(2px, -2px);
 }
 
 @layer components {
   .site-shell {
-    @apply mx-auto w-full max-w-[1260px] px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1260px] px-5 sm:px-8 lg:px-10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
