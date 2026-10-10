@@ -15,6 +15,7 @@ export const navItems = [
   { href: "#work", label: "Work" },
   { href: "#projects", label: "Projects" },
   { href: "#uses", label: "Uses" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export const skills = [
@@ -74,7 +75,7 @@ export const projects = [
       "A high-performance packet analysis tool built in C++ for live diagnostics, anomaly detection, and traffic monitoring on Linux systems.",
     stack: ["C++", "Raw Sockets", "Libpcap", "TCP/IP", "CMake", "Linux"],
     outcome: "Real-time monitoring at 15,000 packets/sec with zero-copy parsing and faster decoding.",
-    accent: "from-[#d96f48]/20 to-[#d96f48]/5",
+    accent: "from-white/12 to-white/[0.02]",
   },
   {
     title: "VectorRAG",
@@ -83,7 +84,7 @@ export const projects = [
       "A local vector search engine integrating HNSW indexing, local RAG pipelines, and REST interfaces for semantic retrieval and benchmarking.",
     stack: ["C++", "HNSW", "Ollama", "REST APIs", "Docker", "RAG"],
     outcome: "14x semantic retrieval speedup with persistent indexing and recovery workflows.",
-    accent: "from-[#7bc9b3]/20 to-[#7bc9b3]/5",
+    accent: "from-white/10 to-white/[0.02]",
   },
   {
     title: "Threaded Chat Server",
@@ -92,7 +93,7 @@ export const projects = [
       "A multi-client communication service designed from the socket layer up with synchronization primitives, thread-safe queues, and predictable behavior under load.",
     stack: ["C++", "POSIX Threads", "Sockets", "TCP", "Linux", "Synchronization"],
     outcome: "Reliable concurrent message handling and client communication under realistic workloads.",
-    accent: "from-[#f1d4a7]/20 to-[#f1d4a7]/5",
+    accent: "from-white/8 to-white/[0.02]",
   },
 ];
 

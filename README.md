@@ -37,6 +37,10 @@ The portfolio is intentionally static: there is no backend, database, API route,
 authentication flow, or environment variable required to run it. Update the
 content in [`lib/portfolio.ts`](./lib/portfolio.ts).
 
+Node.js is the only runtime required by the application. Python and virtual
+environments are not used by the build, development server, or deployment
+workflow.
+
 ## Production build
 
 ```bash

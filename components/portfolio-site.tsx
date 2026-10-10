@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import {
   ArrowUpRight,
@@ -50,7 +51,7 @@ export function PortfolioSite() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_80%_0%,rgba(217,111,72,0.12),transparent_28%),radial-gradient(circle_at_12%_35%,rgba(123,201,179,0.06),transparent_24%)]" />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_80%_0%,rgba(255,255,255,0.06),transparent_28%),radial-gradient(circle_at_12%_35%,rgba(255,255,255,0.03),transparent_24%)]" />
 
       <header className="site-shell relative z-20 pt-5 sm:pt-8">
         <div className="flex items-center justify-between border-b border-border/70 pb-5">
@@ -104,7 +105,7 @@ export function PortfolioSite() {
           <div className="grid gap-12 lg:grid-cols-[1fr_0.44fr] lg:items-end">
             <motion.div initial="hidden" animate="show" variants={reveal} transition={{ duration: 0.55 }}>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-2 text-xs text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-emerald-400 shadow-[0_0_0_5px_rgba(52,211,153,0.12)]" />
+                <span className="size-1.5 rounded-full bg-white shadow-[0_0_0_5px_rgba(255,255,255,0.14)]" />
                 <ShimmeringText
                   text="Available for thoughtful software work"
                   duration={2.8}
@@ -134,13 +135,18 @@ export function PortfolioSite() {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="relative hidden aspect-square max-w-[300px] justify-self-end overflow-hidden rounded-[2rem] border border-border bg-card p-5 lg:flex"
+              className="relative flex aspect-[4/5] w-full max-w-[300px] justify-self-end overflow-hidden rounded-[2rem] border border-border bg-card p-3 grayscale lg:flex"
             >
-              <div className="absolute inset-5 rounded-[1.35rem] border border-border/80 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:26px_26px]" />
-              <div className="relative m-auto flex size-36 items-center justify-center rounded-full border border-accent/40 bg-accent/10">
-                <span className="serif-display text-7xl text-accent">D</span>
-              </div>
-              <span className="absolute bottom-8 left-8 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">01 / 04</span>
+              <Image
+                src="/dev-pratap-singh.jpg"
+                alt="Dev Pratap Singh"
+                fill
+                priority
+                sizes="(min-width: 1024px) 300px, 100vw"
+                className="object-cover object-top"
+              />
+              <div className="pointer-events-none absolute inset-3 rounded-[1.35rem] border border-white/30" />
+              <span className="absolute bottom-6 left-6 bg-black/70 px-2 py-1 text-[10px] uppercase tracking-[0.22em] text-white">Portrait / 01</span>
             </motion.div>
           </div>
         </section>
@@ -254,7 +260,7 @@ export function PortfolioSite() {
                 <a href="/resume.pdf" download className="link-arrow"><Download /> Resume <span className="ml-auto text-xs text-muted-foreground">{resumeMeta.pages}</span></a>
               </div>
               <div className="mt-10 border-t border-border pt-5 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2"><Check className="size-4 text-emerald-400" /> Open to meaningful opportunities</p>
+                <p className="flex items-center gap-2"><Check className="size-4 text-white" /> Open to meaningful opportunities</p>
                 <p className="mt-2">{profile.email}</p>
               </div>
             </div>

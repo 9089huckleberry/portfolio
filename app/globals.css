@@ -5,24 +5,24 @@
 @tailwind utilities;
 
 :root {
-  --background: oklch(0.145 0.012 70);
-  --foreground: oklch(0.94 0.018 75);
-  --card: oklch(0.185 0.012 70);
-  --card-foreground: oklch(0.94 0.018 75);
-  --popover: oklch(0.185 0.012 70);
-  --popover-foreground: oklch(0.94 0.018 75);
-  --primary: oklch(0.94 0.018 75);
-  --primary-foreground: oklch(0.145 0.012 70);
-  --secondary: oklch(0.235 0.012 70);
-  --secondary-foreground: oklch(0.94 0.018 75);
-  --muted: oklch(0.22 0.012 70);
-  --muted-foreground: oklch(0.68 0.018 72);
-  --accent: oklch(0.68 0.16 42);
-  --accent-foreground: oklch(0.98 0.01 75);
-  --destructive: oklch(0.62 0.2 25);
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.13 0 0);
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.13 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.96 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0.08 0 0);
+  --destructive: oklch(0.62 0 0);
   --border: oklch(1 0 0 / 11%);
   --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.68 0.16 42);
+  --ring: oklch(0.96 0 0);
   --radius: 0.8rem;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 ::selection {
-  background: rgba(217, 111, 72, 0.38);
+  background: rgba(255, 255, 255, 0.24);
   color: #fffefb;
 }
 
@@ -75,7 +75,7 @@ body {
 }
 
 .link-arrow:hover {
-  color: var(--accent);
+  color: var(--muted-foreground);
 }
 
 .link-arrow svg {
