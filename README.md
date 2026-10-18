@@ -1,81 +1,34 @@
 # Dev Pratap Singh — Portfolio
 
-A recruiter-focused, frontend-only portfolio built with Next.js App Router,
-TypeScript, Tailwind CSS, Motion, Lucide React, and Base UI.
+Next.js (App Router), TypeScript, Tailwind CSS 3, Motion, Lucide icons. Static, no backend.
 
-## UI setup
-
-The project uses a local Button wrapper around Base UI:
-
-```json
-import { Button } from "@/components/ui/button";
+```
+src/app/        layout (fonts, theme script, metadata), page, globals.css
+src/components/ layout, sections, terminal, theme, ui
+src/data/portfolio.ts  all content (site + terminal read from here) and asset paths
+public/assets/  resume.pdf and profile.jpg (you provide these)
 ```
 
-No Bklit UI package is installed in this repository, so the portfolio does not
-claim or import Bklit components. Navigation, project cards, and contact links
-are implemented with semantic HTML, CSS, and Motion.
+## Replace the resume or photo
 
-## Local development
+Put your files in `public/assets/` with exactly these names — no code changes:
+
+- `resume.pdf`
+- `profile.jpg`
+
+If a file is missing, the site shows an initials avatar / hides the resume button
+and the terminal `resume` command says it is unavailable. Files are checked when
+the page is rendered, so rebuild/redeploy after swapping them in production.
+
+## Edit content
+
+Everything shown comes from [`src/data/portfolio.ts`](./src/data/portfolio.ts).
+
+## Develop
 
 ```bash
 npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-The portfolio is intentionally static: there is no backend, database, API route,
-authentication flow, or environment variable required to run it. Update the
-content in [`lib/portfolio.ts`](./lib/portfolio.ts).
-
-Node.js is the only runtime required by the application. Python and virtual
-environments are not used by the build, development server, or deployment
-workflow.
-
-## Production build
-
-```bash
+npm run dev     # http://localhost:3000
 npm run lint
-npm run build
-npm run start
+npm run build && npm run start
 ```
-
-## Deploy to Vercel
-
-### Existing Git repository
-
-```bash
-git add .
-git commit -m "Build recruiter-focused frontend portfolio"
-git push origin main
-```
-
-Import the GitHub repository at [vercel.com/new](https://vercel.com/new). Vercel
-will detect Next.js automatically. Use the repository root as the project root,
-leave environment variables empty, and deploy.
-
-### New GitHub repository
-
-```bash
-git init
-git add .
-git commit -m "Build recruiter-focused frontend portfolio"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-git push -u origin main
-```
-
-Then import the repository into Vercel.
-
-### Vercel CLI
-
-```bash
-npm install -g vercel
-vercel login
-vercel
-vercel --prod
-```
-
-After deployment, verify the live URL on desktop and mobile. Check the section
-navigation, GitHub/LinkedIn links, resume download, email CTA, responsive menu,
-project repository links, and browser console for errors.
